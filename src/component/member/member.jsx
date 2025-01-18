@@ -1,32 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './member.css';
 
 const Member = () => {
+    const [players, setPlayers] = useState([]);
     const clubData = {
-        name: "Manchester City FC",
+        name: "Software Engineering FC",
         logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
         coach: {
             name: "Pep Guardiola",
             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3wyZ6LtR3CngFsJST2yv8zZfIuF7Ya5FddQ&s",
         },
-        players: [
-            { name: "Rúben Dias", position: "Defender", number: 3, image: "https://via.placeholder.com/100" },
-            { name: "Ederson", position: "Goalkeeper", number: 31, image: "https://via.placeholder.com/100" },
-            { name: "Kevin De Bruyne", position: "Midfielder", number: 17, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR40m-srJEF1GHTaOibFzIsHTWbVeFlda35eg&s" },
-            { name: "Erling Haaland", position: "Forward", number: 9, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXZFd08P52d6ho_teMABIaLjMzxDx5pe30Q&s" },
-            { name: "Jack Grealish", position: "Winger", number: 10, image: "https://via.placeholder.com/100" },
-            { name: "Rúben Dias", position: "Defender", number: 3, image: "https://via.placeholder.com/100" },
-            { name: "Ederson", position: "Goalkeeper", number: 31, image: "https://via.placeholder.com/100" },
-            { name: "Kevin De Bruyne", position: "Midfielder", number: 17, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR40m-srJEF1GHTaOibFzIsHTWbVeFlda35eg&s" },
-            { name: "Erling Haaland", position: "Forward", number: 9, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXZFd08P52d6ho_teMABIaLjMzxDx5pe30Q&s" },
-            { name: "Jack Grealish", position: "Winger", number: 10, image: "https://via.placeholder.com/100" },
-            { name: "Rúben Dias", position: "Defender", number: 3, image: "https://via.placeholder.com/100" },
-            { name: "Ederson", position: "Goalkeeper", number: 31, image: "https://via.placeholder.com/100" },
-            { name: "Kevin De Bruyne", position: "Midfielder", number: 17, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR40m-srJEF1GHTaOibFzIsHTWbVeFlda35eg&s" },
-            { name: "Erling Haaland", position: "Forward", number: 9, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRXZFd08P52d6ho_teMABIaLjMzxDx5pe30Q&s" },
-            { name: "Jack Grealish", position: "Winger", number: 10, image: "https://via.placeholder.com/100" }
-        ]
     };
+
+    useEffect(() => {
+        const fetchPlayers = async () => {
+            try {
+                const response = await fetch('https://astu-football-cup-api.onrender.com/api/v1/player');
+                const data = await response.json();
+                setPlayers(data); // Assuming the API returns an array of players
+            } catch (error) {
+                console.error("Error fetching players:", error);
+            }
+        };
+
+        fetchPlayers();
+    }, []);
 
     return (
         <div>
@@ -43,14 +41,19 @@ const Member = () => {
                 </div>
 
                 {/* Player Cards */}
-                {clubData.players.map((player, index) => (
-                    <div className="player-card" key={index}>
-                        <img src={player.image} alt={player.name} />
-                        <h3>{player.name}</h3>
-                        <p>Position: {player.position}</p>
-                        <p>Number: {player.number}</p>
-                    </div>
-                ))}
+                {players.length > 0 ? (
+                    players.map((player) => (
+                        <div className="player-card" key={player._id}>
+                            <img src={player.avatar.url} alt={player.name} />
+                            <h3>{player.name}</h3>
+                            <p>Position: {player.position}</p>
+                            <p>Number: {player.jerseyNumber}</p>
+                            
+                        </div>
+                    ))
+                ) : (
+                    <p>Loading players...</p>
+                )}
             </section>
         </div>
     );

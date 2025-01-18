@@ -1,27 +1,34 @@
-import React from 'react';
-import "../navbar/navbar.css"
-import Club from '../../pages/teams/teams';
-import Live from '../../pages/live/live';
-import Home from '../../pages/home/home';
-import ball from '../../image/3D-soccer-ball-on-transparent-background-PNG-removebg-preview.png'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import "../navbar/navbar.css";
+import ball from '../../image/3D-soccer-ball-on-transparent-background-PNG-removebg-preview.png';
+
 const NavBar = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
     return (
-        <header>
-            <div className="logo">
+        <header className="nav-header">
+            <div className="nav-logo">
                 <img 
                     src={ball} 
                     alt="Football Logo"
                 />
-                <h1>ASTU League</h1>
-                
+                <h1 className="nav-title">ASTU League</h1>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#Teams">Teams</a></li>
-                    <li><a href="#Live">Live</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+            <button className="nav-toggle" onClick={toggleMenu}>
+            ☰
+            </button>
+            <nav className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+                <ul className="nav-list">
+                    <li className="nav-item"><Link to="/">Home</Link></li>
+                    <li className="nav-item"><Link to="/clubs">Teams</Link></li>
+                    <li className="nav-item"><Link to="/live">Live</Link></li>
+                    <li className="nav-item"><Link to="/">About</Link></li>
+                    <li className="nav-item"><Link to="/">Contact</Link></li>
                 </ul>
             </nav>
         </header>

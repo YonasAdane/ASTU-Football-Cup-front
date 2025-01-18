@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './teams.css';
 
 const teams = [
@@ -13,19 +14,54 @@ const teams = [
 ];
 
 const PremierLeagueTeams = () => {
-    const handleTeamClick = () => {
-        window.open('', '_blank');
+    const navigate = useNavigate();
+    const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseMove = (e) => {
+        const x = e.pageX;
+        const y = e.pageY;
+        setCursorPosition({ x, y });
     };
+
+    const handleTeamClick = (team) => {
+        localStorage.setItem('selectedTeam', JSON.stringify(team));
+        navigate('/member');
+    };
+
+    useEffect(() => {
+        if (isHovering) {
+            window.addEventListener('mousemove', handleMouseMove);
+        } else {
+            window.removeEventListener('mousemove', handleMouseMove);
+        }
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [isHovering]);
 
     return (
         <div className="team-list">
             {teams.map((team) => (
-                <div key={team.id} className="team-card" onClick={handleTeamClick}>
+                <div
+                    key={team.id}
+                    className="team-card"
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                    onClick={() => handleTeamClick(team)}
+                >
                     <img src={team.logo} alt={`${team.name} logo`} className="team-logo" />
                     <h3 className="team-name">{team.name}</h3>
                     <p className="team-description">{team.description}</p>
                 </div>
             ))}
+            {isHovering && (
+                <div
+                    className="cross-effect"
+                    style={{
+                        left: cursorPosition.x,
+                        top: cursorPosition.y,
+                    }}
+                ></div>
+            )}
         </div>
     );
 };

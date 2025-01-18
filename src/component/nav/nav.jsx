@@ -3,6 +3,7 @@ import "../nav/nav.css"; // Assuming your CSS file is still linked
 import Standing from "../Standing/standing";
 import Schedule from "../schedule/schedule";
 import Teams from "../Teams/teams";
+import Lineup from "../lineup/line-up";
 
 const Nav = () => {
     const [activeSection, setActiveSection] = useState('standings'); // Default section
@@ -39,8 +40,9 @@ const Nav = () => {
             <div className="navbar-section-container">
                 {activeSection === 'standings' && <Standing />}
                 {activeSection === 'schedule' && <Schedule />}
-                {activeSection === 'teams' && <Teams />}
+                {activeSection === 'Live' && <Lineup />}
                 {/* Add more sections here if needed */}
+                {activeSection === 'teams' && <Teams />}
             </div>
         </div>
     );

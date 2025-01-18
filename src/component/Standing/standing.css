@@ -15,7 +15,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Align items to the top */
-    padding-top: 20px; /* Add some padding at the top if needed */
+    padding-top: 10px; /* Add some padding at the top if needed */
 }
 
 .scoreboard-section {
@@ -93,5 +93,10 @@ html, body {
     .scoreboard-table th, .scoreboard-table td {
         padding: 8px; /* Less padding in cells on small screens */
         font-size: 14px; /* Smaller font size for better fit */
+    }
+    .scoreboard-section{
+        width: 100%;
+        padding: 0;
+        margin-left: 2px;
     }
 }

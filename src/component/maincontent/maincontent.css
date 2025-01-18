@@ -57,7 +57,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #f2a900;
+    color: #f2a900; /* Hover color remains unchanged */
 }
 
 .hero-section {
@@ -99,7 +99,7 @@ nav ul li a:hover {
 .cta-button {
     display: inline-block;
     padding: 15px 30px;
-    background-color: #f2a900;
+    background-color:#f2a900; /* Changed button background color */
     color: black;
     text-decoration: none;
     font-weight: bold;
@@ -109,7 +109,7 @@ nav ul li a:hover {
 }
 
 .cta-button:hover {
-    background-color: #ffce00;
+    background-color: #16a085; /* Darker shade on hover */
 }
 
 /* Section Layout */
@@ -224,7 +224,6 @@ footer p {
     color: white;
     padding: 50px 20px;
     text-align: center;
-    border-top: 5px solid #f2a900; /* Top border for differentiation */
     margin: 30px 0; /* Margin to separate from other sections */
     border-radius: 10px; /* Rounded corners */
 }
@@ -270,13 +269,12 @@ footer p {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none; /* Remove default outline */
-    border: 2px solid #f2a900; /* Border color on focus */
     background-color: black;
 }
 
 .submit-button {
     padding: 12px 20px; /* Increased padding for buttons */
-    background-color: #f2a900; /* Button background color */
+    background-color: #1abc9c; /* Button background color */
     color: black;
     border: none;
     border-radius: 5px;
@@ -286,6 +284,6 @@ footer p {
 }
 
 .submit-button:hover {
-    background-color: #ffce00; /* Hover color */
+    background-color: #16a085; /* Hover color */
     transform: scale(1.05); /* Slight scaling effect on hover */
 }
